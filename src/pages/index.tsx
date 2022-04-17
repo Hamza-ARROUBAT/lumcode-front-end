@@ -1,10 +1,8 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import styled from 'styled-components'
+import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
-const Test = styled.p`
-  color: red;
-`
+const Editor = dynamic(() => import('../components/Editor'), { ssr: false });
 
 const Home: NextPage = () => {
   return (
@@ -15,9 +13,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Test>lmao</Test>
+      <Editor />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
