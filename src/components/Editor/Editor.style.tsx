@@ -7,6 +7,7 @@ export const EditorStyle = {
     align-items: center;
     height: 500px;
     padding: 0 10em;
+    margin: 15vh 0;
   `,
 
   Commands: {
