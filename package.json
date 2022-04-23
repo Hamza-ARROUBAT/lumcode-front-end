@@ -16,6 +16,7 @@
     "react": "18.0.0",
     "react-ace": "^10.0.0",
     "react-dom": "18.0.0",
+    "react-rewards": "^2.0.3",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
