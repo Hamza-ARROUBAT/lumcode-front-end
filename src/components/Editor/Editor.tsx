@@ -4,15 +4,20 @@ import 'ace-builds/src-noconflict/theme-monokai';
 import { Console, Hook, Unhook } from 'console-feed';
 import { useEffect, useState } from 'react';
 import { EditorStyle } from './Editor.style';
+import { Message } from 'console-feed/lib/definitions/Console';
 
 export default function Editor() {
   const [code, setCode] = useState('');
   const [logs, setLogs] = useState<any[]>([]);
+  const [lastLog, setLastLog] = useState<Message>();
 
   useEffect((): (() => void) => {
     Hook(
       window.console,
-      (log) => setLogs((currLogs) => [...currLogs, log]),
+      (log) => {
+        setLogs((currLogs) => [...currLogs, log]);
+        setLastLog(log);
+      },
       false
     );
 
@@ -20,7 +25,7 @@ export default function Editor() {
     return () => Unhook(window?.console);
   }, []);
 
-  function _runJavascript(text: string) {
+  async function executeCode(text: string) {
     try {
       const f = new Function(text);
       f();
@@ -32,6 +37,12 @@ export default function Editor() {
   function onChange(newSrcCode: string) {
     setCode(newSrcCode);
   }
+
+  useEffect(() => {
+    if (lastLog?.data && lastLog?.data[0] === '1') {
+      console.log('😆');
+    }
+  }, [lastLog]);
 
   return (
     <EditorStyle.Container>
@@ -59,7 +70,7 @@ export default function Editor() {
       <EditorStyle.Commands.Container>
         <EditorStyle.Commands.Button
           onClick={() => {
-            _runJavascript(code);
+            executeCode(code);
           }}
         >
           {'</>'}
@@ -70,7 +81,7 @@ export default function Editor() {
             setLogs([]);
           }}
         >
-          {'Clear'}
+          {'Clear'} {`${lastLog?.data && lastLog.data[0]}`}
         </EditorStyle.Commands.Button>
       </EditorStyle.Commands.Container>
 
