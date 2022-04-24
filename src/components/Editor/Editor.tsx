@@ -51,6 +51,7 @@ export default function Editor() {
     <EditorStyle.Container id="rewardId">
       {/* Editor */}
       <AceEditor
+        width="600px"
         mode="javascript"
         theme="monokai"
         name="blah2"
