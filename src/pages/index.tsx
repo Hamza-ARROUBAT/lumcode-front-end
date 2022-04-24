@@ -38,7 +38,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  padding: 0 5em;
+  padding: 0 10em;
 `;
 
 export default Home;
