@@ -6,8 +6,6 @@ export const EditorStyle = {
     justify-content: center;
     align-items: center;
     height: 500px;
-    padding: 0 10em;
-    margin: 15vh 0;
   `,
 
   Commands: {
@@ -40,7 +38,6 @@ export const EditorStyle = {
   Console: {
     Container: styled.div`
       overflow: auto;
-      max-width: 600px;
       height: 100%;
       flex-grow: 1;
       background: hsl(0, 0%, 15%);
