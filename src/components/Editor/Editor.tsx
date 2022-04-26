@@ -5,7 +5,6 @@ import { Console, Hook, Unhook } from 'console-feed';
 import { useEffect, useState } from 'react';
 import { EditorStyle } from './Editor.style';
 import { Message } from 'console-feed/lib/definitions/Console';
-import { useReward } from 'react-rewards';
 
 export default function Editor() {
   const [code, setCode] = useState('');
@@ -41,14 +40,12 @@ export default function Editor() {
 
   useEffect(() => {
     if (lastLog?.data && lastLog?.data[0] === '1') {
-      reward();
+      console.log('😆');
     }
   }, [lastLog]);
 
-  const { reward, isAnimating } = useReward('rewardId', 'confetti');
-
   return (
-    <EditorStyle.Container id="rewardId">
+    <EditorStyle.Container>
       {/* Editor */}
       <AceEditor
         mode="javascript"
@@ -84,7 +81,7 @@ export default function Editor() {
             setLogs([]);
           }}
         >
-          {'Clear'}
+          {'Clear'} {`${lastLog?.data && lastLog.data[0]}`}
         </EditorStyle.Commands.Button>
       </EditorStyle.Commands.Container>
 
