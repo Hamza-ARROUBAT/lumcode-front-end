@@ -1,16 +1,25 @@
 import { TextBubbleStyle } from './TextBubble.style';
 import AnimatedText from 'react-animated-text-content';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ITextBubble {
+  background: string;
   text: string;
+  isTextSkipped: boolean;
+  setIsTextSkipped: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function TextBubble({ text }: ITextBubble) {
-  const [isTextSkipped, setIsTextSkipped] = useState(false);
-
+export default function TextBubble({
+  background,
+  text,
+  isTextSkipped,
+  setIsTextSkipped,
+}: ITextBubble) {
   return (
-    <TextBubbleStyle.Container onClick={() => setIsTextSkipped(true)}>
+    <TextBubbleStyle.Container
+      background={background}
+      onClick={() => setIsTextSkipped(true)}
+    >
       {isTextSkipped ? (
         <>{text}</>
       ) : (
