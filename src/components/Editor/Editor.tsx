@@ -2,12 +2,28 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 import { Console, Hook, Unhook } from 'console-feed';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { EditorStyle } from './Editor.style';
 import { Message } from 'console-feed/lib/definitions/Console';
-import { useReward } from 'react-rewards';
 
-export default function Editor() {
+interface IEditor {
+  isExplaining: boolean;
+  isQuestioning: boolean;
+  setIsQuestioning: Dispatch<SetStateAction<boolean>>;
+  correctAnswer: string;
+  setIsCorrect: Dispatch<SetStateAction<boolean>>;
+  setIsWrong: Dispatch<SetStateAction<boolean>>;
+  setIsTextSkipped: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Editor({
+  isExplaining,
+  isQuestioning,
+  setIsQuestioning,
+  correctAnswer,
+  setIsCorrect,
+  setIsWrong,
+}): IEditor {
   const [code, setCode] = useState('');
   const [logs, setLogs] = useState<any[]>([]);
   const [lastLog, setLastLog] = useState<Message>();
@@ -40,12 +56,15 @@ export default function Editor() {
   }
 
   useEffect(() => {
-    if (lastLog?.data && lastLog?.data[0] === '1') {
-      reward();
+    if (isQuestioning) {
+      if (lastLog?.data && lastLog?.data[0] === correctAnswer) {
+        setIsCorrect(true);
+      } else {
+        setIsWrong(true);
+        setIsWrong(false);
+      }
     }
   }, [lastLog]);
-
-  const { reward, isAnimating } = useReward('rewardId', 'confetti');
 
   return (
     <EditorStyle.Container id="rewardId">
