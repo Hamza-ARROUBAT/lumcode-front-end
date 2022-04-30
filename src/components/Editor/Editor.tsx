@@ -5,30 +5,23 @@ import { Console, Hook, Unhook } from 'console-feed';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { EditorStyle } from './Editor.style';
 import { Message } from 'console-feed/lib/definitions/Console';
+import { useRecoilState } from 'recoil';
+import { isCorrectState } from '../../store';
 
 interface IEditor {
-  isExplaining: boolean;
-  isQuestioning: boolean;
-  setIsQuestioning: Dispatch<SetStateAction<boolean>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   correctAnswer: string;
-  setIsCorrect: Dispatch<SetStateAction<boolean>>;
   setIsWrong: Dispatch<SetStateAction<boolean>>;
-  setIsTextSkipped: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function Editor({
-  isExplaining,
-  isQuestioning,
-  setIsQuestioning,
-  correctAnswer,
-  setIsCorrect,
-  setIsWrong,
-}): IEditor {
+export default function Editor(props: IEditor) {
   const [code, setCode] = useState('');
   const [logs, setLogs] = useState<any[]>([]);
   const [lastLog, setLastLog] = useState<Message>();
+  const [isCorrect, setIsCorrect] = useRecoilState(isCorrectState);
 
   useEffect((): (() => void) => {
+    props.setIsLoading(false);
     Hook(
       window.console,
       (log) => {
@@ -56,18 +49,14 @@ export default function Editor({
   }
 
   useEffect(() => {
-    if (isQuestioning) {
-      if (lastLog?.data && lastLog?.data[0] === correctAnswer) {
-        setIsCorrect(true);
-      } else {
-        setIsWrong(true);
-        setIsWrong(false);
-      }
+    if (lastLog?.data && lastLog?.data[0] === props.correctAnswer) {
+      setIsCorrect(true);
+    } else {
     }
   }, [lastLog]);
 
   return (
-    <EditorStyle.Container id="rewardId">
+    <EditorStyle.Container id="reward">
       {/* Editor */}
       <AceEditor
         width="600px"

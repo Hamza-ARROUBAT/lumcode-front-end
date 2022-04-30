@@ -2,13 +2,30 @@ import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { useReward } from 'react-rewards';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import TextBubble from '../components/TextBubble';
-import { useReward } from 'react-rewards';
+import { result } from '../store';
+
+// let isLoading = true;
+
+// const Editor = dynamic(
+//   async () => {
+//     const imported = await import('../components/Editor');
+//     isLoading = false;
+//     return imported;
+//   },
+//   {
+//     ssr: false,
+//   }
+// );
+
+const Editor = dynamic(import('../components/Editor'), {
+  ssr: false,
+});
 
 const Home: NextPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
   const [isExplaining, setIsExplaining] = useState(false);
   const [background, setBackground] = useState('hsl(0deg 0% 0% / 0.075)');
   const [bubbleText, setBubbleText] = useState([
@@ -17,57 +34,39 @@ const Home: NextPage = () => {
     'Good Job ! look u printed a word in the console !',
   ]);
   const [step, setStep] = useState(0);
-  const [isTextSkipped, setIsTextSkipped] = useState(false);
+  // const [isTextSkipped, setIsTextSkipped] = useState(false);
 
-  const [isQuestioning, setIsQuestioning] = useState(false);
-
+  // const [isQuestioning, setIsQuestioning] = useState(false);
   const [answerStep, setAnswerStep] = useState(0);
   const [goodAnswers, setGoodAnswers] = useState(['1', '5']);
   const [correctAnswer, setCorrectAnswer] = useState('');
-  const [isCorrect, setIsCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
+  const resultSelector = useRecoilValue(result);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { reward, isAnimating } = useReward('rewardId', 'confetti');
   const wokege = () => {
     setBackground('greenyellow');
     reward();
-    setStep(step + 1);
   };
   const sadge = () => {
     setBackground('red');
   };
 
-  const Editor = dynamic(
-    async () => {
-      const imported = await import('../components/Editor');
-      setIsLoading(false);
-      return imported;
-    },
-    {
-      ssr: false,
-    }
-  );
+  useEffect(() => {
+    setCorrectAnswer(goodAnswers[answerStep]);
+  }, []);
 
   useEffect(() => {
-    if (isTextSkipped) {
-      setCorrectAnswer(goodAnswers[answerStep]);
-      setIsExplaining(false);
-      setIsQuestioning(true);
-    }
-  }, [isTextSkipped]);
-
-  useEffect(() => {
-    if (isCorrect) {
+    if (resultSelector.isCorrect) {
       wokege();
-      setIsCorrect(false);
-      setIsQuestioning(false);
-    } else if (isWrong) {
-      sadge();
+    } else if (resultSelector.isWrong) {
+      // sadge();
     }
-  }, [isCorrect, isWrong]);
+  }, [resultSelector]);
 
   return (
-    <Container>
+    <Container id="rewardId">
       <Head>
         <title>LumCode</title>
         <meta name="description" content="LumCode" />
@@ -77,16 +76,13 @@ const Home: NextPage = () => {
         <TextBubble
           background={background}
           text={bubbleText[step]}
-          isTextSkipped={isTextSkipped}
-          setIsTextSkipped={setIsTextSkipped}
+          // isTextSkipped={isTextSkipped}
+          // setIsTextSkipped={setIsTextSkipped}
         />
       )}
       <Editor
-        isExplaining={isExplaining}
-        isQuestioning={isQuestioning}
-        setIsQuestioning={setIsQuestioning}
+        setIsLoading={setIsLoading}
         correctAnswer={correctAnswer}
-        setIsCorrect={setIsCorrect}
         setIsWrong={setIsWrong}
       />
     </Container>
