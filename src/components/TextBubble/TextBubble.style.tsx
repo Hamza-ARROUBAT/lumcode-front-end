@@ -12,7 +12,7 @@ export const TextBubbleStyle = {
     border-radius: 25px;
     padding: 1em;
     margin-bottom: 20px;
-
+    cursor: pointer;
     /* prettier-ignore */
     box-shadow:
       0 -1px 4px ${(props) => props.background},
