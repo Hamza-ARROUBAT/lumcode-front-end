@@ -16,13 +16,10 @@
     "next": "12.1.5",
     "react": "18.0.0",
     "react-ace": "^10.0.0",
-    "react-animated-text-content": "^1.0.1",
     "react-dom": "18.0.0",
     "react-rewards": "^2.0.3",
-    "react-simple-typewriter": "^3.0.1",
     "recoil": "^0.7.2",
     "styled-components": "^5.3.5",
-    "typewriter-effect": "^2.18.2",
     "uuid": "^8.3.2",
     "windups": "^1.2.1"
   },
