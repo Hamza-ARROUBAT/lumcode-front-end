@@ -48,6 +48,7 @@ const Home: NextPage = () => {
   const wokege = () => {
     setBackground('greenyellow');
     reward();
+    setStep(step + 1);
   };
   const sadge = () => {
     setBackground('red');
@@ -75,9 +76,8 @@ const Home: NextPage = () => {
       {!isLoading && (
         <TextBubble
           background={background}
-          text={bubbleText[step]}
-          // isTextSkipped={isTextSkipped}
-          // setIsTextSkipped={setIsTextSkipped}
+          word={bubbleText[step]}
+          setStep={setStep}
         />
       )}
       <Editor
