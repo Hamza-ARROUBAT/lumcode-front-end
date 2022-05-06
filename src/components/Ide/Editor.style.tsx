@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const EditorStyle = {
+export const IdeStyle = {
   Container: styled.div`
     display: flex;
     justify-content: center;

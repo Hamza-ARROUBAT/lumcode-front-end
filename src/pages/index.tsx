@@ -8,20 +8,7 @@ import styled from 'styled-components';
 import TextBubble from '../components/TextBubble';
 import { result } from '../store';
 
-// let isLoading = true;
-
-// const Editor = dynamic(
-//   async () => {
-//     const imported = await import('../components/Editor');
-//     isLoading = false;
-//     return imported;
-//   },
-//   {
-//     ssr: false,
-//   }
-// );
-
-const Editor = dynamic(import('../components/Editor'), {
+const Ide = dynamic(import('../components/Ide'), {
   ssr: false,
 });
 
@@ -67,7 +54,7 @@ const Home: NextPage = () => {
   }, [resultSelector]);
 
   return (
-    <Container id="rewardId">
+    <Container>
       <Head>
         <title>LumCode</title>
         <meta name="description" content="LumCode" />
@@ -80,7 +67,8 @@ const Home: NextPage = () => {
           setStep={setStep}
         />
       )}
-      <Editor
+      <Ide
+        isLoading={isLoading}
         setIsLoading={setIsLoading}
         correctAnswer={correctAnswer}
         setIsWrong={setIsWrong}
