@@ -6,6 +6,10 @@ interface TextBubbleStyleProps {
 
 export const TextBubbleStyle = {
   Container: styled.div<TextBubbleStyleProps>`
+    background: hsl(0, 0%, 12.5%);
+    color: hsl(0, 0%, 100%);
+
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,10 +26,16 @@ export const TextBubbleStyle = {
       0 8px 8px hsl(0deg 0% 0% / 0.075),
       0 16px 16px hsl(0deg 0% 0% / 0.075)
     ;
-    transition: background 0.5s;
+    transition: box-shadow 0.5s;
   `,
+  arrow: styled.p`
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+    margin: 0;
 
-  subContainer: {
-    Container: styled.div``,
-  },
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: gray;
+  `,
 };
