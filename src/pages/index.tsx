@@ -16,10 +16,12 @@ const Home: NextPage = () => {
   const [isExplaining, setIsExplaining] = useState(false);
   const [background, setBackground] = useState('hsl(0deg 0% 0% / 0.075)');
   const [bubbleText, setBubbleText] = useState([
-    'Try to display the word "1" in the console !',
+    'Try to display the word "demo" in the console !',
     '🎉',
-    'Good Job ! look u printed a word in the console !',
+    'Good Job ! look u printed the word "demo" in the console !',
+    'What a start for a developer journey ! 🙌',
   ]);
+  const [bubbleQuestions, setBubbleQuestions] = useState([0]);
   const [step, setStep] = useState(0);
   // const [isTextSkipped, setIsTextSkipped] = useState(false);
 
@@ -36,6 +38,10 @@ const Home: NextPage = () => {
     setBackground('greenyellow');
     reward();
     setStep(step + 1);
+    setIsQuestioning(false);
+    setInterval(() => {
+      setBackground('none');
+    }, 1500);
   };
   const sadge = () => {
     setBackground('red');
@@ -49,7 +55,7 @@ const Home: NextPage = () => {
     if (resultSelector.isCorrect) {
       wokege();
     } else if (resultSelector.isWrong) {
-      // sadge();
+      sadge();
     }
   }, [resultSelector]);
 
@@ -60,10 +66,15 @@ const Home: NextPage = () => {
         <meta name="description" content="LumCode" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header></Header>
       {!isLoading && (
         <TextBubble
           background={background}
+          bubbleText={bubbleText}
           word={bubbleText[step]}
+          bubbleQuestions={bubbleQuestions}
+          isQuestioning={isQuestioning}
+          setIsQuestioning={setIsQuestioning}
           step={step}
           setStep={setStep}
         />
@@ -71,7 +82,7 @@ const Home: NextPage = () => {
       <Ide
         isLoading={isLoading}
         setIsLoading={setIsLoading}
-        // isQuestioning={isQuestioning}
+        isQuestioning={isQuestioning}
         correctAnswer={correctAnswer}
         setIsWrong={setIsWrong}
       />
@@ -87,5 +98,7 @@ const Container = styled.div`
   padding: 0 10em;
   background: hsl(0, 0%, 16.5%);
 `;
+
+const Header = styled.div``;
 
 export default Home;
