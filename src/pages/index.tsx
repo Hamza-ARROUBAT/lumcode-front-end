@@ -18,9 +18,9 @@ const Home: NextPage = () => {
   const [background, setBackground] = useState('hsl(0deg 0% 0% / 0.075)');
 
   const [bubbleText, setBubbleText] = useState([
-    'Try to display the word "demo" in the console !',
+    'Try to display "Hello World" in the console !',
     '🎉',
-    'Good Job ! look u printed the word "demo" in the console !',
+    'Good Job ! look u printed "Hello World" in the console !',
     'The beginning of a developer journey! 🙌',
   ]);
   const [bubbleQuestions, setBubbleQuestions] = useState([0]);
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
 
   const [isQuestioning, setIsQuestioning] = useState(false);
   const [answerStep, setAnswerStep] = useState(0);
-  const [goodAnswers, setGoodAnswers] = useState(['demo']);
+  const [goodAnswers, setGoodAnswers] = useState(['Hello World']);
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [isWrong, setIsWrong] = useState(false);
   const resultSelector = useRecoilValue(result);
