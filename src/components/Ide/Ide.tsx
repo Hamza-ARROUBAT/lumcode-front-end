@@ -3,12 +3,13 @@ import { Console, Hook, Unhook } from 'console-feed';
 import { Message } from 'console-feed/lib/definitions/Console';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { isCorrectState } from '../../store';
+import { isCorrectState, isWrongState } from '../../store';
 import { IdeStyle } from './Editor.style';
 
 interface IEditor {
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  isQuestioning: boolean;
   correctAnswer: string;
   setIsWrong: Dispatch<SetStateAction<boolean>>;
 }
@@ -18,6 +19,7 @@ export default function Ide(props: IEditor) {
   const [logs, setLogs] = useState<any[]>([]);
   const [lastLog, setLastLog] = useState<Message>();
   const [isCorrect, setIsCorrect] = useRecoilState(isCorrectState);
+  const [isWrong, setIsWrong] = useRecoilState(isWrongState);
 
   useEffect((): (() => void) => {
     Hook(
@@ -51,9 +53,19 @@ export default function Ide(props: IEditor) {
   };
 
   useEffect(() => {
-    if (lastLog?.data && lastLog?.data[0] === props.correctAnswer) {
+    if (
+      props.isQuestioning &&
+      lastLog?.data &&
+      lastLog?.data[0] === props.correctAnswer
+    ) {
+      setIsWrong(false);
       setIsCorrect(true);
-    } else {
+    } else if (
+      props.isQuestioning &&
+      lastLog?.data &&
+      lastLog?.data[0] !== props.correctAnswer
+    ) {
+      setIsWrong(true);
     }
   }, [lastLog]);
 
