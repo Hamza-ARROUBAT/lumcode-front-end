@@ -32,7 +32,7 @@ export default function TextBubble(props: ITextBubble) {
     }
   };
   const [text, { skip }] = useWindupString(props.word, {
-    pace: () => 100,
+    pace: () => 50,
     onFinished: () => setIsFinished(true),
   });
 
