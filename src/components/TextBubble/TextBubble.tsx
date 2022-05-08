@@ -3,6 +3,7 @@ import { useWindupString } from 'windups';
 import { TextBubbleStyle } from './TextBubble.style';
 
 interface ITextBubble {
+  theme: string;
   background: string;
   bubbleText: string[];
   word: string;
@@ -23,7 +24,7 @@ export default function TextBubble(props: ITextBubble) {
   const [isFinished, setIsFinished] = useState(false);
 
   const proceed = () => {
-    if (isFinished && !props.isQuestioning) {
+    if (isFinished && !props.isQuestioning && props.step !== 3) {
       props.setStep(props.step + 1);
       setIsFinished(false);
     } else {
@@ -36,7 +37,11 @@ export default function TextBubble(props: ITextBubble) {
   });
 
   return (
-    <TextBubbleStyle.Container background={props.background} onClick={proceed}>
+    <TextBubbleStyle.Container
+      theme={props.theme}
+      background={props.background}
+      onClick={proceed}
+    >
       <div>{text}</div>
       {isFinished && <TextBubbleStyle.arrow>{'>'}</TextBubbleStyle.arrow>}
     </TextBubbleStyle.Container>

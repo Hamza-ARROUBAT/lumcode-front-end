@@ -1,14 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface TextBubbleStyleProps {
+  readonly theme: string;
   readonly background: string;
 }
 
 export const TextBubbleStyle = {
   Container: styled.div<TextBubbleStyleProps>`
-    background: hsl(0, 0%, 12.5%);
-    color: hsl(0, 0%, 100%);
-
+    ${(props) =>
+      props.theme == 'light'
+        ? css`
+            background: hsl(0, 0%, 100%);
+            color: hsl(0, 0%, 12.5%);
+          `
+        : css`
+            background: hsl(0, 0%, 12.5%);
+            color: hsl(0, 0%, 100%);
+          `}
+    user-select: none;
     position: relative;
     display: flex;
     justify-content: center;
