@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const [step, setStep] = useState(0);
   // const [isTextSkipped, setIsTextSkipped] = useState(false);
 
-  // const [isQuestioning, setIsQuestioning] = useState(false);
+  const [isQuestioning, setIsQuestioning] = useState(false);
   const [answerStep, setAnswerStep] = useState(0);
   const [goodAnswers, setGoodAnswers] = useState(['1', '5']);
   const [correctAnswer, setCorrectAnswer] = useState('');
@@ -64,12 +64,14 @@ const Home: NextPage = () => {
         <TextBubble
           background={background}
           word={bubbleText[step]}
+          step={step}
           setStep={setStep}
         />
       )}
       <Ide
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        // isQuestioning={isQuestioning}
         correctAnswer={correctAnswer}
         setIsWrong={setIsWrong}
       />
@@ -83,6 +85,7 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   padding: 0 10em;
+  background: hsl(0, 0%, 16.5%);
 `;
 
 export default Home;
