@@ -17,3 +17,15 @@ export const result = selector({
     isWrong: get(isWrongState),
   }),
 });
+
+export const themeState = atom({
+  key: 'theme',
+  default: 'light',
+});
+
+export const themeSelector = selector({
+  key: 'themSelector',
+  get: ({ get }) => ({
+    theme: get(themeState),
+  }),
+});
