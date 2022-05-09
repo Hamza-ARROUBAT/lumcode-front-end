@@ -10,13 +10,3 @@ J'ai déployé ce projet sur Vercel. voici les liens pour y accéder :
 
 ## Production
 <a>https://lumcode-front-end.vercel.app/</a>
-
-## Recette
-<a></a>
-
-## Développement
-<a></a>
-
-## Branche sur laquelle je travaille Actuellement 
-<a>https://lumcode-front-r08smpzuv-hamza-arroubat.vercel.app/</a>
-
