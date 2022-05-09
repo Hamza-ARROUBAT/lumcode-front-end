@@ -9,7 +9,7 @@ Pour lancer l'application 💻, il suffit de taper `yarn install` puis `yarn dev
 J'ai déployé ce projet sur Vercel. voici le lien pour y accéder : 
 
 ## Production
-<a>https://vercel.com/hamza-arroubat/lumcode-front-end</a>
+<a>https://lumcode-front-end.vercel.app/</a>
 
 ## Recette
 <a></a>
